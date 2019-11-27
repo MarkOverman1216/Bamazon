@@ -44,7 +44,9 @@ function promptOptions() {
       choices: dataIDs,
       name: 'idToBuy'
     }
-  ]).then(selectSingle(productIdResponse))
+  ]).then(function (productIdResponse) {
+    selectSingle(productIdResponse)
+  })
 }
 
 
@@ -69,12 +71,14 @@ function selectSingle(productIdResponse) {
             }
           }
         }
-      ]).then(updateItem(quantityRepsonse))
+      ]).then(function (quantityRepsonse) {
+        updateItem(quantityRepsonse, productIdResponse, singleItemResponse)
+      })
     })
   }
 }
 
-function updateItem(quantityRepsonse) {
+function updateItem(quantityRepsonse, productIdResponse, singleItemResponse) {
   connection.query(
     "UPDATE products SET ? WHERE ?",
     [
